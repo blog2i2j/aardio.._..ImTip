@@ -239,17 +239,20 @@ winform.btnSend.oncommand = function(id,event){
 	prompt = string.replace(prompt,`(https?\://[^\s()"']+)`,
 		function(url){
 		 
-			wb.showLoading("正在读取与转换网页数据："+url)
-			
-			import web.turndown;
-			var md,err = web.turndown.httpGet(url)
-			if(!#md) return;
- 
-			md = '\r\n\r\n用户输入的参考网址：' + url 
-				+  '\r\n\r\n下面是自该网址获取的' +(err?" Markdown ":"文本")+'格式内容：'
-				+  '\r\n\r\n' + md +'\r\n\r\n------------------------\r\n\r\n'
-		 
-			knowledge = knowledge ++ md;
+		 	if(!..string.match(url,"<@@.js@>|<@@.css@>|<@@.jpg@>|<@@.png@>|<@@.gif@>|<@@.webp@>$") ){
+		 		
+				wb.showLoading("正在读取与转换网页数据："+url)
+				
+				import web.turndown;
+				var md,err = web.turndown.httpGet(url)
+				if(!#md) return;
+ 	
+				md = '\r\n\r\n用户输入的参考网址：' + url 
+					+  '\r\n\r\n下面是自该网址获取的' +(err?" Markdown ":"文本")+'格式内容：'
+					+  '\r\n\r\n' + md +'\r\n\r\n------------------------\r\n\r\n'
+		 	
+				knowledge = knowledge ++ md;
+			}
 		});
 	
 	if(#knowledge){
